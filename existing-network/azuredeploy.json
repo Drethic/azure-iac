@@ -243,7 +243,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', concat(parameters('vnetName'), '/', variables('secondarySubnetName')))]",
+        "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('secondarySubnetName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
         "[resourceId('Microsoft.Resources/deployments', 'UpdateVNetDNS')]"
       ],
