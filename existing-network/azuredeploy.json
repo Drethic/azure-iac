@@ -88,7 +88,7 @@
     }
   },
   "variables": {
-    "storageAccountName": "[concat(parameters('vnetName'), 'storage')]",
+    "storageAccountName": "[concat(replace(parameters('vnetName'), '-', ''), 'storage')]",
     "primarySubnetName": "[concat(parameters('vnetName'), '-Primary')]",
     "secondarySubnetName": "[concat(parameters('vnetName'), '-Secondary')]",
     "jumpNICVnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
@@ -119,7 +119,7 @@
       "properties": {}
     },
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2017-10-01",
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "name": "[concat(parameters('vnetName'), '/', variables('primarySubnetName'))]",
       "location": "[resourceGroup().location]",
@@ -128,7 +128,7 @@
       }
     },
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2017-10-01",
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "name": "[concat(parameters('vnetName'), '/', variables('secondarySubnetName'))]",
       "location": "[resourceGroup().location]",
