@@ -91,6 +91,9 @@
     "storageAccountName": "[toLower(concat(replace(parameters('vnetName'), '-', ''), 'storage'))]",
     "primarySubnetName": "[concat(parameters('vnetName'), '-Primary')]",
     "secondarySubnetName": "[concat(parameters('vnetName'), '-Secondary')]",
+    "primarySubnetIPParts": "[split(split(parameters('vnetPrimarySubnetPrefix'), '/')[0], '.')]",
+    "dc1IP": "[concat( variables('primarySubnetIPParts')[0], '.', variables('primarySubnetIPParts')[1], '.', variables('primarySubnetIPParts')[2], '.4')]",
+    "dc2IP": "[concat( variables('primarySubnetIPParts')[0], '.', variables('primarySubnetIPParts')[1], '.', variables('primarySubnetIPParts')[2], '.5')]",
     "jumpNICVnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
     "jumpNICSubnetRef": "[concat(variables('jumpNICVnetID'), '/subnets/', variables('secondarySubnetName'))]",
     "ADSubnetRef": "[concat(variables('jumpNICVnetID'), '/subnets/', variables('primarySubnetName'))]",
@@ -178,7 +181,7 @@
             "value": "[variables('ADSubnetRef')]"
           },
           "fixedPrivateIp": {
-            "value": "10.0.0.4"
+            "value": "[variables('dc1IP')]"
           },
           "adminUsername": {
             "value": "[parameters('adminUsername')]"
@@ -221,7 +224,7 @@
             "value": "[variables('ADSubnetRef')]"
           },
           "fixedPrivateIp": {
-            "value": "10.0.0.5"
+            "value": "[variables('dc2IP')]"
           },
           "adminUsername": {
             "value": "[parameters('adminUsername')]"
@@ -385,8 +388,8 @@
           },
           "dnsServers": {
             "value": [
-              "10.0.0.4",
-              "10.0.0.5"
+              "[variables('dc1IP')]",
+              "[variables('dc2IP')]"
             ]
           },
           "addressSpace": {
