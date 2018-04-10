@@ -383,6 +383,7 @@
       "name": "[concat(variables('jumpVMName'),'/joindomain')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', concat(variables('adPDCVMName'),'/CreateADForest'))]",
         "[resourceId('Microsoft.Resources/deployments', 'JumpDeploy')]"
       ],
       "properties": {
