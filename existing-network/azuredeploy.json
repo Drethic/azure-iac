@@ -132,6 +132,9 @@
     },
     {
       "apiVersion": "2017-10-01",
+      "dependsOn": [
+        "concat(parameters('vnetName'), '/', variables('primarySubnetName'))"
+      ],
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "name": "[concat(parameters('vnetName'), '/', variables('secondarySubnetName'))]",
       "location": "[resourceGroup().location]",
@@ -391,12 +394,6 @@
               "[variables('dc1IP')]",
               "[variables('dc2IP')]"
             ]
-          },
-          "addressSpace": {
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName')),  '2016-06-01').addressSpace]"
-          },
-          "subnets": {
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName')),  '2016-06-01').subnets]"
           }
         }
       }
