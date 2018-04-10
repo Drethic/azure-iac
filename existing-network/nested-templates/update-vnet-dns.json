@@ -7,6 +7,9 @@
     },
     "dnsServers": {
       "type": "array"
+    },
+    "addressSpace": {
+      "type": "object"
     }
   },
   "variables": {
@@ -18,6 +21,7 @@
       "location": "[resourceGroup().location]",
       "apiVersion": "2016-03-30",
       "properties": {
+        "addressSpace": "[parameters('addressSpace')]",
         "dhcpOptions": {
           "dnsServers": "[parameters('dnsServers')]"
         }

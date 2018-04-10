@@ -394,6 +394,9 @@
               "[variables('dc1IP')]",
               "[variables('dc2IP')]"
             ]
+          },
+          "addressSpace": {
+            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName'))).addressSpace]"
           }
         }
       }
