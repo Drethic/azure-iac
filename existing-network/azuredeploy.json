@@ -390,10 +390,10 @@
             ]
           },
           "addressSpace": {
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName'),  '2016-06-01')).addressSpace]"
+            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName')),  '2016-06-01').addressSpace]"
           },
           "subnets": {
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName'),  '2016-06-01')).subnets]"
+            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName')),  '2016-06-01').subnets]"
           }
         }
       }
