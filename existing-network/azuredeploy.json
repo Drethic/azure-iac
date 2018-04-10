@@ -88,7 +88,7 @@
     }
   },
   "variables": {
-    "storageAccountName": "[concat(replace(parameters('vnetName'), '-', ''), 'storage')]",
+    "storageAccountName": "[toLower(concat(replace(parameters('vnetName'), '-', ''), 'storage'))]",
     "primarySubnetName": "[concat(parameters('vnetName'), '-Primary')]",
     "secondarySubnetName": "[concat(parameters('vnetName'), '-Secondary')]",
     "jumpNICVnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
