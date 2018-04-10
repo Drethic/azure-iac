@@ -157,43 +157,10 @@
       }
     },
     {
-      "name": "UpdateVNetDNS",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('primarySubnetName'))]"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('vnetwithDNSTemplateUri')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "vnetName": {
-            "value": "[parameters('vnetName')]"
-          },
-          "dnsServers": {
-            "value": [
-              "[variables('dc1IP')]",
-              "[variables('dc2IP')]"
-            ]
-          },
-          "addressSpace": {
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName')),  '2016-06-01').addressSpace]"
-          },
-          "subnets": {
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName')),  '2016-06-01').subnets]"
-          }
-        }
-      }
-    },
-    {
       "name": "DC1Deploy",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "dependsOn": [
-        "UpdateVNetDNS",
         "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('primarySubnetName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
       ],
@@ -383,7 +350,6 @@
       "name": "[concat(variables('jumpVMName'),'/joindomain')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', concat(variables('adPDCVMName'),'/CreateADForest'))]",
         "[resourceId('Microsoft.Resources/deployments', 'JumpDeploy')]"
       ],
       "properties": {
@@ -400,6 +366,38 @@
         },
         "protectedSettings": {
           "Password": "[parameters('adminPassword')]"
+        }
+      }
+    },
+    {
+      "name": "UpdateVNetDNS",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', variables('adPDCVMName'),'/extensions/CreateADForest')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('vnetwithDNSTemplateUri')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vnetName": {
+            "value": "[parameters('vnetName')]"
+          },
+          "dnsServers": {
+            "value": [
+              "[variables('dc1IP')]",
+              "[variables('dc2IP')]"
+            ]
+          },
+          "addressSpace": {
+            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName')),  '2016-06-01').addressSpace]"
+          },
+          "subnets": {
+            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName')),  '2016-06-01').subnets]"
+          }
         }
       }
     }
