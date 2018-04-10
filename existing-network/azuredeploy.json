@@ -133,7 +133,7 @@
     {
       "apiVersion": "2017-10-01",
       "dependsOn": [
-        "concat(parameters('vnetName'), '/', variables('primarySubnetName'))"
+        "[concat(parameters('vnetName'), '/', variables('primarySubnetName'))]"
       ],
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "name": "[concat(parameters('vnetName'), '/', variables('secondarySubnetName'))]",
