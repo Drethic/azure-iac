@@ -396,7 +396,7 @@
             ]
           },
           "addressSpace": {
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName'))).addressSpace]"
+            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))).addressSpace]"
           }
         }
       }
