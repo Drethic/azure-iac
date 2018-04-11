@@ -103,7 +103,7 @@
     "DCHASetName": "[concat(parameters('vnetName'), '-DCHASet')]",
     "baseUri": "[deployment().properties.templateLink.uri]",
     "windowsVmTemplateURL": "[uri(variables('baseUri'),'../primitives/windowsvm.json')]",
-    "adForestName": "[concat(variables('adPDCVMName'),'/CreateADForest')]",
+    "adForestName": "[concat(variables('adPDCVMName'),'-CreateADForest')]",
     "adPDCModulesURL": "[uri(variables('baseUri'),'DSC/CreateADPDC.ps1.zip')]",
     "adPDCConfigurationFunction": "CreateADPDC.ps1\\CreateADPDC",
     "adBDCModulesURL": "[uri(variables('baseUri'),'DSC/ConfigureADBDC.ps1.zip')]",
@@ -287,7 +287,7 @@
     {
       "apiVersion": "2016-03-30",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('adPDCVMName'),'/CreateADForest')]",
+      "name": "[variables('adForestName')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', 'DC1Deploy')]"
