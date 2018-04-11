@@ -206,7 +206,8 @@
       "apiVersion": "2017-05-10",
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('secondarySubnetName'))]",
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "[resourceId('Microsoft.Resources/deployments', concat(variables('adPDCVMName'),'/CreateADForest'))]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -248,7 +249,8 @@
       "apiVersion": "2017-05-10",
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('secondarySubnetName'))]",
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "[resourceId('Microsoft.Resources/deployments', concat(variables('adPDCVMName'),'/CreateADForest'))]"
       ],
       "properties": {
         "mode": "Incremental",
