@@ -206,8 +206,7 @@
       "apiVersion": "2017-05-10",
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('secondarySubnetName'))]",
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-        "[resourceId('Microsoft.Resources/deployments', 'UpdateVNetDNS')]"
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -249,8 +248,7 @@
       "apiVersion": "2017-05-10",
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('secondarySubnetName'))]",
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-        "[resourceId('Microsoft.Resources/deployments', 'UpdateVNetDNS')]"
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -320,8 +318,7 @@
       "name": "[concat(variables('adBDCVMName'),'/ConfigureADBDC')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', 'DC2Deploy')]",
-        "[resourceId('Microsoft.Resources/deployments', 'UpdateVNetDNS')]"
+        "[resourceId('Microsoft.Resources/deployments', 'DC2Deploy')]"
       ],
       "properties": {
         "publisher": "Microsoft.Powershell",
