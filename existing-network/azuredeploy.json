@@ -9,6 +9,13 @@
         "description": "Enter the name of the vnet you want to add the domain controllers to, ex: Common"
       }
     },
+    "vnetAddressSpace": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/16",
+      "metadata": {
+        "description": "Enter the address space for the VNET"
+      }
+    },
     "vnetPrimarySubnetPrefix": {
       "type": "string",
       "defaultValue": "10.0.0.0/24",
@@ -396,7 +403,7 @@
             ]
           },
           "addressSpace": {
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))).addressSpace]"
+            "value": "[parameters('vnetAddressSpace')]"
           }
         }
       }
