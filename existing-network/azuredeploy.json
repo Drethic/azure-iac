@@ -208,7 +208,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('secondarySubnetName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', variables('adForestName'))]"
+        "[concat('Microsoft.Compute/virtualMachines/extensions', variables('adForestName'))]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -251,7 +251,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('secondarySubnetName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', variables('adForestName'))]"
+        "[concat('Microsoft.Compute/virtualMachines/extensions', variables('adForestName'))]"
       ],
       "properties": {
         "mode": "Incremental",
