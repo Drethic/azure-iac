@@ -9,13 +9,6 @@
         "description": "Enter the name of the vnet you want to add the domain controllers to, ex: Common"
       }
     },
-    "vnetAddressSpace": {
-      "type": "string",
-      "defaultValue": "10.0.0.0/16",
-      "metadata": {
-        "description": "Enter the address space for the VNET"
-      }
-    },
     "vnetPrimarySubnetPrefix": {
       "type": "string",
       "defaultValue": "10.0.0.0/24",
@@ -113,8 +106,7 @@
     "adPDCModulesURL": "[uri(variables('baseUri'),'DSC/CreateADPDC.ps1.zip')]",
     "adPDCConfigurationFunction": "CreateADPDC.ps1\\CreateADPDC",
     "adBDCModulesURL": "[uri(variables('baseUri'),'DSC/ConfigureADBDC.ps1.zip')]",
-    "adBDCConfigurationFunction": "ConfigureADBDC.ps1\\ConfigureADBDC",
-    "vnetwithDNSTemplateUri": "[uri(variables('baseUri'),'nested-templates/update-vnet-dns.json')]"
+    "adBDCConfigurationFunction": "ConfigureADBDC.ps1\\ConfigureADBDC"
   },
   "resources": [
     {
@@ -376,35 +368,6 @@
         },
         "protectedSettings": {
           "Password": "[parameters('adminPassword')]"
-        }
-      }
-    },
-    {
-      "name": "UpdateVNetDNS",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', variables('adPDCVMName'),'/extensions/CreateADForest')]"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('vnetwithDNSTemplateUri')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "vnetName": {
-            "value": "[parameters('vnetName')]"
-          },
-          "dnsServers": {
-            "value": [
-              "[variables('dc1IP')]",
-              "[variables('dc2IP')]"
-            ]
-          },
-          "addressSpace": {
-            "value": "[parameters('vnetAddressSpace')]"
-          }
         }
       }
     }
