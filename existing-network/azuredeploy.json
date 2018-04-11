@@ -103,6 +103,7 @@
     "DCHASetName": "[concat(parameters('vnetName'), '-DCHASet')]",
     "baseUri": "[deployment().properties.templateLink.uri]",
     "windowsVmTemplateURL": "[uri(variables('baseUri'),'../primitives/windowsvm.json')]",
+    "adForestName": "[concat(variables('adPDCVMName'),'/CreateADForest')]",
     "adPDCModulesURL": "[uri(variables('baseUri'),'DSC/CreateADPDC.ps1.zip')]",
     "adPDCConfigurationFunction": "CreateADPDC.ps1\\CreateADPDC",
     "adBDCModulesURL": "[uri(variables('baseUri'),'DSC/ConfigureADBDC.ps1.zip')]",
@@ -207,7 +208,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('secondarySubnetName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-        "[resourceId('Microsoft.Resources/deployments', concat(variables('adPDCVMName'),'/CreateADForest'))]"
+        "[resourceId('Microsoft.Resources/deployments', variables('adForestName'))]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -250,7 +251,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('secondarySubnetName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-        "[resourceId('Microsoft.Resources/deployments', concat(variables('adPDCVMName'),'/CreateADForest'))]"
+        "[resourceId('Microsoft.Resources/deployments', variables('adForestName'))]"
       ],
       "properties": {
         "mode": "Incremental",
